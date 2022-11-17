@@ -15,7 +15,6 @@ const Part = (props) => {
 }
 
 const Content = (props) => {
-
   return (
     <>
       <Part part={props.parts[0]} />
@@ -34,7 +33,6 @@ const Total = (props) => {
 }
 
 const App = () => {
-  debugger
   const course = {
     name: 'Half Stack application development',
     parts: [
