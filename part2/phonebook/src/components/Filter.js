@@ -1,9 +1,10 @@
 const Filter = (props) => {
-    return (
-        <div>
-            <input name="filter" onChange={props.filter} />
-        </div>
-    )
-}
+  return (
+    <div>
+      <span>Search: </span>
+      <input name="filter" onChange={props.filter} />
+    </div>
+  );
+};
 
-export default Filter
+export default Filter;
