@@ -30,10 +30,14 @@ morgan.token('body', req => {
   return JSON.stringify(req.body)
 })
 
-
+app.use(express.static('build'))
 app.use(express.json());
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] :response-time ms :body'))
+
+app.get("/", (req,res) => {
+  res.render('build/index')
+})
 
 app.get("/api/persons", (req, res) => {
   res.json(persons);
@@ -68,11 +72,6 @@ app.delete("/api/persons/delete/:id", (req, res) => {
   }
 });
 
-const createId = () => {
-  const randomId = Math.floor(Math.random() * 5000);
-  return randomId;
-};
-
 app.post("/api/persons", (req, res) => {
   console.log(`Here is a new person: ${JSON.stringify(req.body)}`)
   const name = req.body.name;
@@ -95,6 +94,7 @@ app.post("/api/persons", (req, res) => {
       
     };
     persons = [...persons, newEntry];
+    console.log(newEntry)
   }
   res.status(200).end();
 });

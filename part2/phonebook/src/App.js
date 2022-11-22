@@ -42,31 +42,30 @@ const App = () => {
     setNewNumber(event.target.value);
   };
 
-  const addEntry = () => {
-    const id = Math.floor(Math.random() * 1000);
-    const newPerson = {
-      id: id,
-      name: newName,
-      number: newNumber,
-    };
+  const addEntry = (newEntry) => {
+    // const id = Math.floor(Math.random() * 1000);
+    // const newPerson = {
+    //   name: newName,
+    //   number: newNumber,
+    // };
     peopleServices
-      .addPerson(newPerson)
+      .addPerson(newEntry)
       .then(() => {
         setError(false);
-        setMessage(`${newPerson.name} added to phonebook`);
+        setMessage(`${newEntry.name} added to phonebook`);
         setTimeout(() => {
           setMessage(null);
         }, 5000);
       })
       .catch(() => {
         setError(true);
-        setMessage(`Failed to add ${newPerson.name} to phonebook`);
+        setMessage(`Failed to add ${newEntry.name} to phonebook`);
         setTimeout(() => {
           setMessage(null);
         }, 5000);
       });
 
-    setPersons([...persons, newPerson]);
+    setPersons([...persons, newEntry]);
 
     setNewName("");
     setNewNumber("");
@@ -74,18 +73,25 @@ const App = () => {
 
   const checkEntry = (event) => {
     event.preventDefault();
-    let id;
-    let found = false;
-    for (let person of persons) {
-      if (person.name === newName) {
-        id = person.id;
-        found = true;
-      }
+    const newEntry = {
+      id: Math.floor(Math.random() * 5000),
+      name: newName,
+      number: newNumber
     }
-    return found ? updateNumber(id) : addEntry();
+    let allNames = persons.map(person => person.name)
+    // If persons does not include person, create new and send to addentry with id
+    // else, ask if you want to update, pass persons id
+    if(allNames.includes(newName)){
+      let duplicate = persons.find(person => person.name === newName)
+      updateNumber(duplicate.id)
+    }
+    else{
+      addEntry(newEntry)
+    }
   };
 
   const updateNumber = (id) => {
+    console.log('called update')
     let person = persons.find((person) => person.id === id);
     let updatedPerson = { ...person, number: newNumber };
 
@@ -121,6 +127,7 @@ const App = () => {
   };
 
   const deleteEntry = (id) => {
+    console.log(id)
     if (window.confirm("Are you sure you want to delete this entry?")) {
       const newListOfPeople = persons.filter((person) => person.id != id);
       setPersons(newListOfPeople);

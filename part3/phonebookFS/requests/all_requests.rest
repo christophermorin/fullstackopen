@@ -1,4 +1,4 @@
-POST http://localhost:3001/api/persons
+POST https://phonebook-fs.fly.dev/api/persons
 Content-Type: application/json
 
     {
@@ -11,5 +11,5 @@ GET http://localhost:3001/api/persons
 ###
 GET http://localhost:3001/api/persons/3
 ###
-DELETE http://localhost:3001/api/persons/delete/3
+DELETE https://phonebook-fs.fly.dev/api/persons/delete/0
 ###
