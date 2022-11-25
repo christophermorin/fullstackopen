@@ -43,29 +43,23 @@ const App = () => {
   };
 
   const addEntry = (newEntry) => {
-    // const id = Math.floor(Math.random() * 1000);
-    // const newPerson = {
-    //   name: newName,
-    //   number: newNumber,
-    // };
     peopleServices
       .addPerson(newEntry)
-      .then(() => {
+      .then((result) => {
+        setPersons([...persons, result]);
         setError(false);
         setMessage(`${newEntry.name} added to phonebook`);
         setTimeout(() => {
           setMessage(null);
         }, 5000);
       })
-      .catch(() => {
+      .catch((error) => {
         setError(true);
-        setMessage(`Failed to add ${newEntry.name} to phonebook`);
+        setMessage(`${error.response.data.error}`);
         setTimeout(() => {
           setMessage(null);
         }, 5000);
       });
-
-    setPersons([...persons, newEntry]);
 
     setNewName("");
     setNewNumber("");
@@ -74,24 +68,22 @@ const App = () => {
   const checkEntry = (event) => {
     event.preventDefault();
     const newEntry = {
-      id: Math.floor(Math.random() * 5000),
       name: newName,
-      number: newNumber
-    }
-    let allNames = persons.map(person => person.name)
+      number: newNumber,
+    };
+    let allNames = persons.map((person) => person.name);
     // If persons does not include person, create new and send to addentry with id
     // else, ask if you want to update, pass persons id
-    if(allNames.includes(newName)){
-      let duplicate = persons.find(person => person.name === newName)
-      updateNumber(duplicate.id)
-    }
-    else{
-      addEntry(newEntry)
+    if (allNames.includes(newName)) {
+      let duplicate = persons.find((person) => person.name === newName);
+      console.log(duplicate.id);
+      updateNumber(duplicate.id);
+    } else {
+      addEntry(newEntry);
     }
   };
 
   const updateNumber = (id) => {
-    console.log('called update')
     let person = persons.find((person) => person.id === id);
     let updatedPerson = { ...person, number: newNumber };
 
@@ -102,21 +94,20 @@ const App = () => {
     ) {
       peopleServices
         .updatePerson(id, updatedPerson)
-        .then(
-          setPersons(
-            persons.map((person) => (person.id != id ? person : updatedPerson))
-          )
-        )
         .then(() => {
           setError(false);
+          setPersons(
+            persons.map((person) => (person.id !== id ? person : updatedPerson))
+          )
           setMessage(`${person.name} has been updated`);
           setTimeout(() => {
             setMessage(null);
           }, 5000);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error)
           setError(true);
-          setMessage(`Failed to update ${person.name} entry`);
+          setMessage(`${error.response.data.error}`);
           setTimeout(() => {
             setMessage(null);
           }, 5000);
@@ -127,9 +118,9 @@ const App = () => {
   };
 
   const deleteEntry = (id) => {
-    console.log(id)
+    console.log(id);
     if (window.confirm("Are you sure you want to delete this entry?")) {
-      const newListOfPeople = persons.filter((person) => person.id != id);
+      const newListOfPeople = persons.filter((person) => person.id !== id);
       setPersons(newListOfPeople);
       peopleServices
         .deletePerson(id)
@@ -149,7 +140,7 @@ const App = () => {
         });
     }
   };
-
+  console.log(persons);
   return (
     <div>
       <h2>Phonebook</h2>

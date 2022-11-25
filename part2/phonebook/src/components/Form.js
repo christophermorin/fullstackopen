@@ -8,7 +8,7 @@ const Form = ({ submit, getName, getNumber, nameVal, numberVal }) => {
         </div>
         <div>
           <span>Add Number: </span>
-          <input value={numberVal} onChange={getNumber} required />
+          <input value={numberVal} onChange={getNumber} required /><span><small> 12-1234567 or 123-12345678</small></span>
         </div>
         <div>
           <button type="submit">Create Entry</button>

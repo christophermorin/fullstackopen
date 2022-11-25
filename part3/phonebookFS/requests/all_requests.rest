@@ -1,15 +1,23 @@
-POST https://phonebook-fs.fly.dev/api/persons
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
     {
-        "id": 0,
-        "name": "Bob",
-        "number": "555-555-555"
+        "name": "Bo",
+        "number": "555"
     }
 ###    
 GET http://localhost:3001/api/persons
 ###
-GET http://localhost:3001/api/persons/3
+GET http://localhost:3001/api/persons/6380ebcbec234159f7cebd1b
 ###
-DELETE https://phonebook-fs.fly.dev/api/persons/delete/0
+GET http://localhost:3001/info
 ###
+DELETE http://localhost:3001/api/persons/delete/6380ebcbec234159f7cebd1b
+###
+PUT http://localhost:3001/api/persons/637f9ccd8d9154fdf27d5db3
+Content-Type: application/json
+
+    {
+        "name": "Te",
+        "number": "666"
+    }

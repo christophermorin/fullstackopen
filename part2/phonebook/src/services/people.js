@@ -8,7 +8,7 @@ const getAll = () => {
 
 const addPerson = (newPerson) => {
     const req = axios.post(baseUrl, newPerson)
-    return req.then(res => console.log(res))
+    return req.then(res => res.data)
 }
 
 const deletePerson = (id) => {
@@ -16,8 +16,8 @@ const deletePerson = (id) => {
     return req.then(res => console.log(`Post ${id} deleted`))
 }
 
-const updatePerson = (id, newNumber) => {
-    const req = axios.put(`${baseUrl}/${id}`, newNumber)
+const updatePerson = (id, updatedPerson) => {
+    const req = axios.put(`${baseUrl}/${id}`, updatedPerson)
     return req.then(res => res.data)
 }
 export default {getAll, addPerson, deletePerson, updatePerson}
