@@ -32,4 +32,7 @@
 
 ### Part 4
 
-Working on it!
+- [ ] Project structure
+- [ ] Testing
+- [ ] User administration
+- [ ] Token Auth
