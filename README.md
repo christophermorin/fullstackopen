@@ -4,12 +4,32 @@
 
 ## Main repo for all course submissions, find individual READMEs in each Part.
 
-# Technologies in use / Tech Stack / Built with
+# Main technologies in use:
 
   - React
   - Redux
   - Node.js
   - Express
   - MongoDB
-  - CSS
 
+### Part 1
+- [x] React state mangement
+- [x] Event handlers
+- [x] Debugging React apps
+  
+### Part 2
+- [x] Fetch/REST API 
+- [x] Axios
+- [x] Error handling
+- [x] Inline Style
+
+### Part 3
+- [x] Node.js Express server build
+- [x] MongoDB
+- [x] Middleware
+- [x] Validation / ESLint
+- [x] Deploying FS App
+
+### Part 4
+
+Working on it!
