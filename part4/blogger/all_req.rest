@@ -1,0 +1,21 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+     {
+    "title": "React patterns",
+    "author": "Michael Chan",
+    "url": "https://reactpatterns.com/",
+    "likes": 7
+    }
+
+###
+GET http://localhost:3001/api/blogs/
+###
+DELETE http://localhost:3001/api/blogs/63879dc0df92c61dfc4d1cc6
+###
+PUT http://localhost:3001/api/blogs/6387a458cc01966367c86fd5
+Content-Type: application/json
+
+     {
+    "likes": 100
+    }
