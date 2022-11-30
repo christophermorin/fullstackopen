@@ -44,6 +44,3 @@ phoneBookSchema.set('toJSON', {
 })
 
 module.exports = mongoose.model('Person', phoneBookSchema)
-
-const withThree = /^[0-9]{3}?[-\s]?[0-9]{8}$/im
-const withTwo = /^[0-9]{3}?[-\s]?[0-9]{8}$/im
