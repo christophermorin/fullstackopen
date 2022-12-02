@@ -1,17 +1,20 @@
+# Blog Tests
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzOGExMzU5YzZhYTk0MzVlMGI3NmE4NSIsImlhdCI6MTY3MDAxMDY2NX0.uwC6VoZV4nN5VnkorKLTzYue7pcVL98JFlRR-IUV6vc
+
 
      {
-    "title": "React patterns",
-    "author": "Michael Chan",
+    "title": "One more for root",
+    "author": "Hello root",
     "url": "https://reactpatterns.com/",
-    "likes": 7
+    "likes": 9999
     }
 
 ###
 GET http://localhost:3001/api/blogs/
 ###
-DELETE http://localhost:3001/api/blogs/63879dc0df92c61dfc4d1cc6
+DELETE http://localhost:3001/api/blogs/638a0ed67a3966fba7485a9e
 ###
 PUT http://localhost:3001/api/blogs/6387a458cc01966367c86fd5
 Content-Type: application/json
@@ -19,3 +22,35 @@ Content-Type: application/json
      {
     "likes": 100
     }
+
+###
+# User Tests
+POST http://localhost:3001/api/users
+Content-Type: application/json
+     
+     # {
+     #      "username": "root",
+     #      "name": "rooty",
+     #      "password": "111"
+     # }
+
+         {
+          "username": "jess",
+          "name": "jessy",
+          "password": "222"
+     }
+     
+###
+GET http://localhost:3001/api/users/
+
+
+### Login Req
+
+
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+     "username": "root",
+     "password": "111"
+}

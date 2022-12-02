@@ -1,5 +1,8 @@
+const Blog = require('../models/Blog')
 const Blogs = require('../models/Blog')
+const Users = require('../models/Users')
 
+// Blog Hekpers
 const initialBlogs = [
   {
     _id: "5a422a851b54a676234d17f7",
@@ -32,6 +35,15 @@ const blogsInDb = async () => {
   return allBlogs.map(blog => blog.toJSON())
 }
 
+const usersInDb = async () => {
+  const allUsers = await Users.find({})
+  return allUsers.map(user => user.toJSON())
+}
+// User Helpers
+
+
+
+
 module.exports = {
-  initialBlogs, blogsInDb
+  initialBlogs, blogsInDb, usersInDb
 }
