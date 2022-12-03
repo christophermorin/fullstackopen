@@ -32,7 +32,14 @@
 
 ### Part 4
 
-- [ ] Project structure
-- [ ] Testing
-- [ ] User administration
-- [ ] Token Auth
+- [x] Project structure
+- [x] Testing
+- [x] User administration
+- [x] Token Auth
+
+### Part 5
+
+- [ ] Localstorage
+- [ ] Props - prop types
+- [ ] Testing React Apps
+- [ ] End to end testing
