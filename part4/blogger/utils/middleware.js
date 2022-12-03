@@ -1,3 +1,5 @@
+const Users = require('../models/Users')
+const jwt = require('jsonwebtoken')
 const logger = require('./logger')
 
 const requestLogger = (req, res, next) => {
@@ -37,11 +39,21 @@ const extractToken = async (req, res, next) => {
   next()
 }
 
+const userExtractor = async (req, res, next) => {
+  if(!req.token){
+    return res.status(401).json({error: 'Access Denied'})
+  }
+  const decodedToken = jwt.verify(req.token, process.env.SECRET)
+  const user = await Users.findById(decodedToken.id, {passwordHash: 0})
+  req.user = user
+  next()
+}
+
 
 module.exports = {
   requestLogger,
   unknownEndpoint,
   errorHandler,
-  extractToken
-
+  extractToken,
+  userExtractor
 }

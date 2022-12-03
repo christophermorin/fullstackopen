@@ -1,30 +1,31 @@
-# Blog Tests
+### Create new blog
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYzOGExMzU5YzZhYTk0MzVlMGI3NmE4NSIsImlhdCI6MTY3MDAxMDY2NX0.uwC6VoZV4nN5VnkorKLTzYue7pcVL98JFlRR-IUV6vc
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implc3MiLCJpZCI6IjYzOGI5ZGJiMjAwMDJmMjNkYzJhMTI1OSIsImlhdCI6MTY3MDA5NDUzOH0.nTVo8PGstu8fUZNeTrxO22__3OHg3M357n9TZLTCWyM
 
      {
-    "title": "One more for root",
-    "author": "Hello root",
-    "url": "https://reactpatterns.com/",
-    "likes": 9999
+    "title": "One for jess",
+    "author": "Hello jess",
+    "url": "https://onetwothree.com/",
+    "likes": 42
     }
 
-###
+### Get all blogs
 GET http://localhost:3001/api/blogs/
-###
-DELETE http://localhost:3001/api/blogs/638a0ed67a3966fba7485a9e
-###
-PUT http://localhost:3001/api/blogs/6387a458cc01966367c86fd5
+
+### Delete one blog
+DELETE http://localhost:3001/api/blogs/638ba004d031f889ebc9aa03
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implc3MiLCJpZCI6IjYzOGI5ZGJiMjAwMDJmMjNkYzJhMTI1OSIsImlhdCI6MTY3MDA5NDUzOH0.nTVo8PGstu8fUZNeTrxO22__3OHg3M357n9TZLTCWyM
+
+### Update blogs
+PUT http://localhost:3001/api/blogs/638b9dde20002f23dc2a125f
 Content-Type: application/json
 
      {
     "likes": 100
     }
 
-###
-# User Tests
+### Create new users
 POST http://localhost:3001/api/users
 Content-Type: application/json
      
@@ -40,17 +41,15 @@ Content-Type: application/json
           "password": "222"
      }
      
-###
+### Get all users
 GET http://localhost:3001/api/users/
 
 
-### Login Req
-
-
+### Login with user
 POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-     "username": "root",
-     "password": "111"
+     "username": "jess",
+     "password": "222"
 }
