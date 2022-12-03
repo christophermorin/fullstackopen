@@ -11,6 +11,7 @@
   - Node.js
   - Express
   - MongoDB
+  - Jest
 
 ### Part 1
 - [x] React state mangement
