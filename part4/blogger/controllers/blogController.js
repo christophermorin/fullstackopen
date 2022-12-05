@@ -14,9 +14,9 @@ blogRouter.get('/', async (request, response, next) => {
     next(error)
   }
 })
-
 blogRouter.post('/', userExtractor, async (request, response, next) => {
   const token = request.token
+
   if(token === null){
     return response.status(401).json({ error: 'token is missing or invalid' })
   }
@@ -28,7 +28,6 @@ blogRouter.post('/', userExtractor, async (request, response, next) => {
 
   const user = request.user
   const blog = new Blog(request.body)
-
   if(!blog.title || !blog.url){
     response.status(400).json({error: 'Blog title and url required'}).end()
   }
@@ -53,6 +52,7 @@ blogRouter.post('/', userExtractor, async (request, response, next) => {
 
 blogRouter.delete('/:id', userExtractor, async (request, response, next) => {
   const token = request.token
+
   if(token === null){
     return response.status(401).json({ error: 'token is missing or invalid' })
   }
@@ -75,7 +75,7 @@ blogRouter.delete('/:id', userExtractor, async (request, response, next) => {
     await Blog.findByIdAndDelete(request.params.id)
     user.blogs = user.blogs.filter(blog => blog.toString() !== request.params.id)
     user.save()
-    response.status(204).end()
+    return response.status(204).end()
   }
   else{
     return response.status(401).json({ error: 'User validation error'} )
@@ -87,7 +87,11 @@ blogRouter.put('/:id', async (request, response, next) => {
   const blog = request.body
 
   const updatedBlog = {
-    likes: blog.likes
+    title: blog.title,
+    author: blog.author,
+    url: blog.url,
+    likes: blog.likes,
+    user: blog.user
   }
   await Blog.findByIdAndUpdate(request.params.id, updatedBlog)
   try {

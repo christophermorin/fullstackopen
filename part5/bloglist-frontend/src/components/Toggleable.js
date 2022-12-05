@@ -13,7 +13,7 @@ const Toggleable = (props) => {
   return(
     <div>
       <div style={hideOnFormOpen}>
-        <button onClick={handleChangeVisibility}>Creat New Entry</button>
+        <button onClick={handleChangeVisibility} style={{marginTop: '10px'}}>Creat New Entry</button>
       </div>
       <div style={showOnFormOpen}>
         {props.children}

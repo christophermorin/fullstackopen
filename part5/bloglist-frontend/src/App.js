@@ -15,10 +15,6 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
-
   const [error, setError]  =useState(false)
   const [message, setMessage] = useState(null)
 
@@ -29,12 +25,21 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const loggedUser = JSON.parse(window.localStorage.getItem('user'))
+    const loggedUser = JSON.parse(window.localStorage.getItem('userName'))
     if(loggedUser){
       setUser(loggedUser)
     }
   }, [])
-
+  useEffect(() => {
+    const userIsAuth = JSON.parse(window.localStorage.getItem('user'))
+    if(userIsAuth){
+      blogService.getToken(userIsAuth)
+    }
+    else {
+      console.log('Session expired')
+    }
+    
+  }, [user])
   
 
   const handleLogin = async (event) => {
@@ -45,13 +50,14 @@ const App = () => {
     }
     try {
       const result = await loginService.getLogin(userLogin)
-      window.localStorage.setItem('user', JSON.stringify(result))
+      window.localStorage.setItem('user', JSON.stringify(result.userAuth.user))
+      window.localStorage.setItem('userName', JSON.stringify(result.name))
 
-      blogService.setToken(result.token)
+      blogService.setToken(result.userAuth.token)
 
       setPassword('')
       setUsername('')
-      setUser(result)
+      setUser(result.name)
 
       setError(false)
       setMessage(`${result.name} logged in`)
@@ -71,78 +77,52 @@ const App = () => {
 
   const handleLogout = () =>{
     window.localStorage.removeItem('user')
+    window.localStorage.removeItem('userName')
     setUser('')
     setError(false)
-    setMessage('Later aligator')
+    setMessage('You have been logged out')
     setTimeout(() => {
       setMessage(null)
     },3000)
   }
-
-  const addBlog = async (event) => {
-    event.preventDefault()
-    const newBlog = {
-      title: title,
-      author: author,
-      url: url
-    }
-    try {
-      const result = await blogService.addBlog(newBlog)
-      setBlogs(prevState => [...prevState, result])
-
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-
-      setError(false)
-      setMessage(`New blog added, not that'll we'll read it`)
-      setTimeout(() => {
-        setMessage(null)
-      },3000)
-    } catch (error) {
-      setError(true)
-      setMessage('Could not add new blog. Did you include both a title and url?')
-      setTimeout(() => {
-        setMessage(null)
-      },3000)
-    }
-    
-  }
-
   return (
     <div>
       {!user 
       ?
-        <div>
-          <Form 
-            username={username}
-            password={password}
-            setUsername={setUsername}
-            setPassword={setPassword}
-            handleLogin={handleLogin}
-            message={message}
-            error={error}
-          />
-        </div>
+      <div>
+        <Form 
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+          message={message}
+          error={error}
+        />
+      </div>
       :
       <div>
         <h2>blogs</h2>
         {message && <Notification message={message} error={error}/>}
-        <h4>{user.name} is logged in</h4>{user && <Logout logout={handleLogout}/>}
+        <h4>{user} is logged in</h4>{user && <Logout logout={handleLogout}/>}
         <Toggleable>
           <AddBlog 
-            title={title}
-            setTitle={setTitle}
-            author={author}
-            setAuthor={setAuthor}
-            url={url}
-            setUrl={setUrl}
-            addBlog={addBlog}
+            setBlogs={setBlogs}
+            setError={setError}
+            setMessage={setMessage}
           />
         </Toggleable>
-        {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+        <ul>
+        {blogs.sort((a,b) => b.likes - a.likes).map(blog =>
+          <Blog 
+            key={blog.id} 
+            blog={blog} 
+            setBlogs={setBlogs}
+            setMessage={setMessage}
+            setError={setError}
+          />
         )}
+        </ul>
       </div>
       }
     </div>

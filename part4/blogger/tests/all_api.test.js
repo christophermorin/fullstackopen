@@ -44,10 +44,8 @@ beforeEach(async () => {
     .send(userLogin)
     .expect(201)
     .expect('Content-Type', /application\/json/)
-
-  token = user.body.token
+  token = user.body.userAuth.token
 })
-
 describe('when some blogs exist', () => {
   test('all blogs are returned', async () => {
     const response = await api.get('/api/blogs')
@@ -74,7 +72,6 @@ describe('when new blogs are added', () => {
       likes: 1,
       user: allUsers[0]
     }
-
     await api
       .post('/api/blogs')
       .send(newBlog)
@@ -181,6 +178,7 @@ describe('deleting blogs', () => {
     const blogTitles = blogsAtEnd.map(blog => blog.title)
     expect(blogTitles).not.toContain(blogToDelete.title)
   })
+
   test('unauthorized if no token', async () => {
     const allBlogs = await helper.blogsInDb()
     const blogToDelete = allBlogs[0]

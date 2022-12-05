@@ -42,7 +42,7 @@ Content-Type: application/json
      # }
      
 ### Get all users
-GET http://localhost:3001/api/users/
+GET http://localhost:3001/api/users
 
 
 ### Login with user
@@ -51,5 +51,5 @@ Content-Type: application/json
 
 {
      "username": "root",
-     "password": "222"
+     "password": "111"
 }

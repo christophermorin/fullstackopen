@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const logger = require('./logger')
 
 const requestLogger = (req, res, next) => {
-  if(req.path !== '/api/login'){
+  if(req.path !== '/api/login' && req.path !== '/api/users'){
     logger.info('Method: ', req.method)
     logger.info('Path: ', req.path)
     logger.info('Body: ', req.body)
@@ -26,6 +26,9 @@ const errorHandler = (req, res, next) => {
   }
   else if(error.name === 'JsonWebTokenError') {
     return res.status(400).json( {error: 'Invalid or missing token'})
+  }
+  else if(error.name === 'Unauthorized'){
+    return res.status(401).json( {error: 'Unauthorized access'})
   }
 
   next(error)
