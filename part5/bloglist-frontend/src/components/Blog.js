@@ -1,9 +1,10 @@
-import { useState } from "react"
-import BlogExpanded from "./BlogExpanded"
+import { useState } from 'react'
+import BlogExpanded from './BlogExpanded'
 import blogServices from '../services/blogs'
 
-const Blog = ({blog, setBlogs, setMessage, setError}) => {
+const Blog = ({ blog, setBlogs, setMessage, setError }) => {
   const [expandBlog, setExpandBlog] = useState(false)
+
   const toggleExpand = () => {
     setExpandBlog(prevState => !prevState)
   }
@@ -38,29 +39,26 @@ const Blog = ({blog, setBlogs, setMessage, setError}) => {
       setMessage('Cannot delete this blog, is it yours?')
       setTimeout(() => {
         setMessage(null)
-      }, 3000)    
+      }, 3000)
     }
   }
 
   const styles = {
     border: '2px solid black',
     padding: '10px'
-
   }
 
   return(
     <li style={styles}>
-      {blog.title}<button onClick={toggleExpand}  style={{marginLeft: '10px'}}>Expand</button>
-      {expandBlog && 
-        <BlogExpanded 
-        blog={blog}
-        incrementLike={incrementLike}
-        deleteBlog={deleteBlog}
-        
+      {blog.title}<button onClick={toggleExpand}  style={{ marginLeft: '10px' }}>Expand</button>
+      {expandBlog &&
+        <BlogExpanded
+          blog={blog}
+          incrementLike={incrementLike}
+          deleteBlog={deleteBlog}
         />}
-    </li>  
+    </li>
   )
-
-  }
+}
 
 export default Blog

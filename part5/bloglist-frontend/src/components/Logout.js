@@ -1,5 +1,4 @@
 const Logout = (props) => {
-
   return(
     <div>
       <button onClick={props.logout}>Logout</button>

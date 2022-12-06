@@ -10,18 +10,16 @@ import Toggleable from './components/Toggleable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-
   const [error, setError]  =useState(false)
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -38,9 +36,8 @@ const App = () => {
     else {
       console.log('Session expired')
     }
-    
+
   }, [user])
-  
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -64,18 +61,18 @@ const App = () => {
       setTimeout(() => {
         setMessage(null)
       },3000)
-      
+
     } catch (error) {
       setError(true)
       setMessage('Invalid username or password')
       setTimeout(() => {
         setMessage(null)
       },3000)
-     
-    }    
+
+    }
   }
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     window.localStorage.removeItem('user')
     window.localStorage.removeItem('userName')
     setUser('')
@@ -87,43 +84,43 @@ const App = () => {
   }
   return (
     <div>
-      {!user 
-      ?
-      <div>
-        <Form 
-          username={username}
-          password={password}
-          setUsername={setUsername}
-          setPassword={setPassword}
-          handleLogin={handleLogin}
-          message={message}
-          error={error}
-        />
-      </div>
-      :
-      <div>
-        <h2>blogs</h2>
-        {message && <Notification message={message} error={error}/>}
-        <h4>{user} is logged in</h4>{user && <Logout logout={handleLogout}/>}
-        <Toggleable>
-          <AddBlog 
-            setBlogs={setBlogs}
-            setError={setError}
-            setMessage={setMessage}
+      {!user
+        ?
+        <div>
+          <Form
+            username={username}
+            password={password}
+            setUsername={setUsername}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+            message={message}
+            error={error}
           />
-        </Toggleable>
-        <ul>
-        {blogs.sort((a,b) => b.likes - a.likes).map(blog =>
-          <Blog 
-            key={blog.id} 
-            blog={blog} 
-            setBlogs={setBlogs}
-            setMessage={setMessage}
-            setError={setError}
-          />
-        )}
-        </ul>
-      </div>
+        </div>
+        :
+        <div>
+          <h2>blogs</h2>
+          {message && <Notification message={message} error={error}/>}
+          <h4>{user} is logged in</h4>{user && <Logout logout={handleLogout}/>}
+          <Toggleable title={'Create New Entry'}>
+            <AddBlog
+              setBlogs={setBlogs}
+              setError={setError}
+              setMessage={setMessage}
+            />
+          </Toggleable>
+          <ul>
+            {blogs.sort((a,b) => b.likes - a.likes).map(blog =>
+              <Blog
+                key={blog.id}
+                blog={blog}
+                setBlogs={setBlogs}
+                setMessage={setMessage}
+                setError={setError}
+              />
+            )}
+          </ul>
+        </div>
       }
     </div>
   )
