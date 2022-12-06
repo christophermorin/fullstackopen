@@ -50,7 +50,18 @@ const Blog = ({ blog, setBlogs, setMessage, setError }) => {
 
   return(
     <li style={styles}>
-      {blog.title}<button onClick={toggleExpand}  style={{ marginLeft: '10px' }}>Expand</button>
+      <span>
+        {blog.title}
+      </span>
+        -
+      <span>
+        {blog.author}
+      </span>
+      <button
+        onClick={toggleExpand}
+        style={{ marginLeft: '10px' }}>
+          Expand
+      </button>
       {expandBlog &&
         <BlogExpanded
           blog={blog}

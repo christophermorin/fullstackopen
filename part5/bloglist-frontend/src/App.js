@@ -28,6 +28,7 @@ const App = () => {
       setUser(loggedUser)
     }
   }, [])
+
   useEffect(() => {
     const userIsAuth = JSON.parse(window.localStorage.getItem('user'))
     if(userIsAuth){
@@ -36,7 +37,6 @@ const App = () => {
     else {
       console.log('Session expired')
     }
-
   }, [user])
 
   const handleLogin = async (event) => {
@@ -61,14 +61,12 @@ const App = () => {
       setTimeout(() => {
         setMessage(null)
       },3000)
-
     } catch (error) {
       setError(true)
       setMessage('Invalid username or password')
       setTimeout(() => {
         setMessage(null)
       },3000)
-
     }
   }
 
@@ -81,6 +79,26 @@ const App = () => {
     setTimeout(() => {
       setMessage(null)
     },3000)
+  }
+
+  const createBlog = async (newBlog) => {
+    try {
+      const result = await blogService.addBlog(newBlog)
+      setBlogs(prevState => [...prevState, result])
+      setError(false)
+      setMessage('New blog added, not that\'ll we\'ll read it')
+
+      setTimeout(() => {
+        setMessage(null)
+      },3000)
+    } catch (error) {
+      setError(true)
+      setMessage('Could not add new blog. Did you include both a title and url?')
+
+      setTimeout(() => {
+        setMessage(null)
+      },3000)
+    }
   }
   return (
     <div>
@@ -104,9 +122,10 @@ const App = () => {
           <h4>{user} is logged in</h4>{user && <Logout logout={handleLogout}/>}
           <Toggleable title={'Create New Entry'}>
             <AddBlog
-              setBlogs={setBlogs}
-              setError={setError}
-              setMessage={setMessage}
+              // setBlogs={setBlogs}
+              // setError={setError}
+              // setMessage={setMessage}
+              createBlog={createBlog}
             />
           </Toggleable>
           <ul>

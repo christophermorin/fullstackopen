@@ -1,39 +1,20 @@
 import { useState } from 'react'
-import blogService from '../services/blogs'
 
-const AddBlog = ({ setBlogs, setMessage, setError }) => {
-
+const AddBlog = ({ createBlog }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
-  const addBlog = async (event) => {
+  const addBlog = (event) => {
     event.preventDefault()
-    const newBlog = {
+    createBlog({
       title: title,
       author: author,
       url: url
-    }
-    try {
-      const result = await blogService.addBlog(newBlog)
-      setBlogs(prevState => [...prevState, result])
-
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-
-      setError(false)
-      setMessage('New blog added, not that\'ll we\'ll read it')
-      setTimeout(() => {
-        setMessage(null)
-      },3000)
-    } catch (error) {
-      setError(true)
-      setMessage('Could not add new blog. Did you include both a title and url?')
-      setTimeout(() => {
-        setMessage(null)
-      },3000)
-    }
+    })
+    setTitle('')
+    setAuthor('')
+    setUrl('')
   }
 
   const container = {

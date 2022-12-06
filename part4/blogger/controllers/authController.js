@@ -3,7 +3,6 @@ const authRouter = require('express').Router()
 
 
 authRouter.get('/:id', async (request, response, next) => {
-  console.log(request.params.id)
   const user = await Tokens.findOne({user: request.params.id})
   console.log(user)
   try {
