@@ -46,3 +46,10 @@
 - [X] Server side auth
 - [X] Cypress
 - [X] End to end testing
+
+### Part 6
+
+- [ ] Redux
+- [ ] Redux Toolkit
+- [ ] Server communication with Redux
+- [ ] Connect
