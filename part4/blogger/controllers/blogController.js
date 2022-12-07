@@ -16,7 +16,6 @@ blogRouter.get('/', async (request, response, next) => {
 })
 blogRouter.post('/', userExtractor, async (request, response, next) => {
   const token = request.token
-
   if(token === null){
     return response.status(401).json({ error: 'token is missing or invalid' })
   }

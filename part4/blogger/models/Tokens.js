@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const tokenSchema = new mongoose.Schema({
-  "expireAt": {type: Date, expires: 3600 },
+  'expireAt': {type: Date, expires: 3600 },
   token: String,
   user: String
 })

@@ -35,8 +35,8 @@ loginRouter.post('/', async (request, response, next) => {
       userAuth.expireAt = new Date()
       await userAuth.save()
       response
-      .status(201)
-      .send({ userAuth, username: user.username, name: user.name })
+        .status(201)
+        .send({ userAuth, username: user.username, name: user.name })
     }
     else{
       const userAuth = new Tokens({

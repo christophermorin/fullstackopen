@@ -122,13 +122,10 @@ const App = () => {
           <h4>{user} is logged in</h4>{user && <Logout logout={handleLogout}/>}
           <Toggleable title={'Create New Entry'}>
             <AddBlog
-              // setBlogs={setBlogs}
-              // setError={setError}
-              // setMessage={setMessage}
               createBlog={createBlog}
             />
           </Toggleable>
-          <ul>
+          <ul id="allBlogs">
             {blogs.sort((a,b) => b.likes - a.likes).map(blog =>
               <Blog
                 key={blog.id}
