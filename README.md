@@ -40,7 +40,9 @@
 
 ### Part 5
 
-- [ ] Localstorage
-- [ ] Props - prop types
-- [ ] Testing React Apps
-- [ ] End to end testing
+- [X] Localstorage
+- [X] Props - prop types
+- [X] Testing React Apps
+- [X] Server side auth
+- [X] Cypress
+- [X] End to end testing
