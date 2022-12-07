@@ -31,7 +31,6 @@ test('expand event handler shows url and likes', async () => {
     url: 'root.url',
     likes: 12,
   }
-  
   render(<Blog blog={blog}  />)
 
   const user = userEvent.setup()

@@ -49,7 +49,7 @@ const Blog = ({ blog, setBlogs, setMessage, setError }) => {
   }
 
   return(
-    <li style={styles}>
+    <li style={styles} className='blog'>
       <span>
         {blog.title}
       </span>

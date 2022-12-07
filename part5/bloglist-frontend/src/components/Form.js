@@ -7,19 +7,21 @@ const Form = (props) => {
       {props.message && <Notification message={props.message} error={props.error}/>}
       <form onSubmit={props.handleLogin}>
         <input
-          name='Username'
+          name='username'
           placeholder='Username'
           value={props.username}
           onChange={({ target }) => props.setUsername(target.value)}
+          id="username"
         />
         <input
-          name='Password'
+          name='password'
           placeholder='Password'
           type='password'
           value={props.password}
           onChange={({ target }) => props.setPassword(target.value)}
+          id="password"
         />
-        <button>Submit</button>
+        <button id="submit">Submit</button>
       </form>
     </div>
   )

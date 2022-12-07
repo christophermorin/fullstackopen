@@ -49,7 +49,12 @@ GET http://localhost:3001/api/users
 POST http://localhost:3001/api/login
 Content-Type: application/json
 
+# {
+#      "username": "root",
+#      "password": "111"
+# }
+
 {
      "username": "root",
-     "password": "111"
+     "password": "secret"
 }
