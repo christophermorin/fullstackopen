@@ -1,61 +1,49 @@
-const anecdotesAtStart = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
+import { createSlice } from "@reduxjs/toolkit"
+import doteServices from "../services/doteServices"
 
-const getId = () => (100000 * Math.random()).toFixed(0)
-
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0
-  }
-}
-
-const initialState = anecdotesAtStart.map(asObject)
-
-export const upVote = (id) => {
-  return {
-    type: 'UP_VOTE',
-    data: { id }
-  }
-}
-
-export const createDote = (content) => {
-  return {
-    type: 'NEW_DOTE',
-    data: { content }
-  }
-}
-
-const reducer = (state = initialState, action) => {
-  switch(action.type){
-    case 'UP_VOTE':
-      const id = action.data.id
-      const doteToUpVote = state.find((dote) => dote.id === id)
-      const changedDote = {
-        ...doteToUpVote,
-        votes: doteToUpVote.votes + 1
-      }
-      return state.map(dote => dote !== doteToUpVote ? dote : changedDote)
-    case 'NEW_DOTE':
-      const newDote = {
-        content: action.data.content,
-        id: getId(),
-        votes: 0
-      }
+const doteSlice = createSlice({
+  name: 'dotes',
+  initialState: [],
+  reducers: {
+    setDotes(state,action){
+      return action.payload.sort((a,b) => b.votes - a.votes)
+    },
+    createDote(state, action) {
       return [
         ...state,
-        newDote
+        action.payload
       ]
-    default:
-      return state
+    },
+    upVote(state, action){
+      const id = action.payload.id
+      const doteToUpVote = state.find(dote => dote.id === id)
+      const newState = state.map(dote => dote !== doteToUpVote ? dote : action.payload)
+      return newState.sort((a,b) => b.votes - a.votes)
+    }
+  }
+})
+
+export const {createDote, upVote, setDotes} = doteSlice.actions
+
+export const initializeDotes = () => {
+  return async (dispatch) => {
+    const response = await doteServices.getDotes()
+    dispatch(setDotes(response))
   }
 }
 
-export default reducer
+export const addNewDote = (content) => {
+  return async (dispatch) => {
+    const response = await doteServices.createDote(content)
+    dispatch(createDote(response.data))
+  }
+}
+
+export const upVoteOne = (id, update) => {
+  return async (dispatch) => {
+    const response = await doteServices.updateDote(id, update)
+    dispatch(upVote(response))
+  }
+}
+
+export default doteSlice.reducer
