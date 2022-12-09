@@ -1,5 +1,5 @@
 // import { useSelector } from "react-redux"
-import { connect } from "react-redux"
+import { connect } from 'react-redux'
 const Notification = (props) => {
   // const notification = useSelector(state => state.notification)
   console.log(props.notification)
@@ -10,13 +10,13 @@ const Notification = (props) => {
   }
   return (
     props.notification.length > 0
-    ?
+      ?
       <div style={style}>
         {props.notification[props.notification.length -1]}
       </div>
-    :
+      :
       <div>
-      
+
       </div>
   )
 }

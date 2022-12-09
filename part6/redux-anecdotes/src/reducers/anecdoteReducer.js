@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import doteServices from "../services/doteServices"
+import { createSlice } from '@reduxjs/toolkit'
+import doteServices from '../services/doteServices'
 
 const doteSlice = createSlice({
   name: 'dotes',
@@ -23,7 +23,7 @@ const doteSlice = createSlice({
   }
 })
 
-export const {createDote, upVote, setDotes} = doteSlice.actions
+export const { createDote, upVote, setDotes } = doteSlice.actions
 
 export const initializeDotes = () => {
   return async (dispatch) => {

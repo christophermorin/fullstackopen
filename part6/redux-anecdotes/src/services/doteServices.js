@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios'
 
 const baseUrl = 'http://localhost:3001/anecdotes'
 
@@ -17,4 +17,4 @@ const updateDote = async (id, update) => {
   return result.data
 }
 
-export default {getDotes, createDote, updateDote}
+export default { getDotes, createDote, updateDote }

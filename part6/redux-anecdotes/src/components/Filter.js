@@ -1,6 +1,6 @@
 // import { useDispatch } from "react-redux"
-import { filterDotes } from "../reducers/filterReducer"
-import { connect } from "react-redux"
+import { filterDotes } from '../reducers/filterReducer'
+import { connect } from 'react-redux'
 
 const Filter = (props) => {
   // const dispatch = useDispatch()
@@ -10,8 +10,8 @@ const Filter = (props) => {
     props.filterDotes(search)
   }
   return (
-    <div style={{marginBottom: '10px'}}>
-        <input onChange={(handleChange)}/>     
+    <div style={{ marginBottom: '10px' }}>
+      <input onChange={(handleChange)}/>
     </div>
   )
 }
