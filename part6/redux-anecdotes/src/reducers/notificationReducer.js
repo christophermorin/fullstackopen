@@ -12,7 +12,6 @@ const NotificationSlice = createSlice({
     setMessage(state, action){
       state.push(action.payload)
     }
-
   }
 })
 
