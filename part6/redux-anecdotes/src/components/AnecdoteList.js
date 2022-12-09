@@ -3,9 +3,11 @@ import { upVoteOne } from "../reducers/anecdoteReducer"
 import { setNotificationMessage} from "../reducers/notificationReducer"
 
 const AnecdoteList = () => {
-  const anecdotes = useSelector(state => state.dotes)
-  const filtered = useSelector(state => state.filtered)
-
+  const anecdotes = useSelector(({dotes, filtered}) => filtered 
+    ? dotes.filter(dote => dote.content.toLowerCase().includes(filtered)) 
+    : dotes
+  )
+  
   const dispatch = useDispatch()
   const vote = (anecdote) => {
     dispatch(upVoteOne(anecdote.id, {
@@ -15,36 +17,19 @@ const AnecdoteList = () => {
     dispatch(setNotificationMessage(`You voted for ${anecdote.content}`, 5)) 
   }
 
-  const dotesDisplay = filtered 
-    ? 
-      <div>
-        {anecdotes.filter(anecdote => anecdote.content.toLowerCase().includes(filtered)).map(anecdote => 
-          <div key={anecdote.id}>
-          <div>
-            {anecdote.content}
-          </div>
-          <div>
-            has {anecdote.votes}
-            <button onClick={() => vote(anecdote)}>vote</button>
-          </div>
-         </div>
-        )}
+  const dotesDisplay = anecdotes.map(anecdote => {
+    return(
+      <div key={anecdote.id}>
+        <div>
+          {anecdote.content}
+        </div>
+        <div>
+          has {anecdote.votes}
+          <button onClick={() => vote(anecdote)}>vote</button>
+        </div>
       </div>
-    :
-      <div>
-        {anecdotes.map(anecdote =>
-          <div key={anecdote.id}>
-            <div>
-              {anecdote.content}
-            </div>
-            <div>
-              has {anecdote.votes}
-              <button onClick={() => vote(anecdote)}>vote</button>
-            </div>
-          </div>
-        )}
-      </div>
-
+    )
+})
   return (
     <div>
       {dotesDisplay}

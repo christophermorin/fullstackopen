@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux"
+// import { useDispatch } from "react-redux"
 import { setNotificationMessage} from "../reducers/notificationReducer"
 import { addNewDote } from "../reducers/anecdoteReducer"
+import { connect } from "react-redux"
 
-const AnecdoteForm = () => {
-  const dispatch = useDispatch()
+const AnecdoteForm = (props) => {
+  // const dispatch = useDispatch()
   const addDote = (event) => {
     event.preventDefault()
     const content = event.target.dote.value
@@ -12,8 +13,8 @@ const AnecdoteForm = () => {
       votes: 0
     }
     event.target.dote.value = ''
-    dispatch(addNewDote(newDote))
-    dispatch(setNotificationMessage(`${newDote.content} added`, 5))
+    props.addNewDote(newDote)
+    props.setNotificationMessage(`${newDote.content} added`, 5)
   }
   return (
     <div>
@@ -26,4 +27,20 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+// const mapDispatchToProps = {
+//   addNewDote,
+//   setNotificationMessage
+// }
+
+
+const ConnectedAnecdoteForm = connect(
+  null,
+  // Alternative way of using mapDispatchToProps
+  {
+    addNewDote,
+    setNotificationMessage
+  }
+)(AnecdoteForm)
+
+export default ConnectedAnecdoteForm
+// export default AnecdoteForm
