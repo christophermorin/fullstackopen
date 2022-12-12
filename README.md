@@ -49,7 +49,7 @@
 
 ### Part 6
 
-- [ ] Redux
-- [ ] Redux Toolkit
-- [ ] Server communication with Redux
-- [ ] Connect
+- [x] Redux
+- [x] Redux Toolkit
+- [x] Server communication with Redux
+- [x] Connect
