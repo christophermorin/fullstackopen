@@ -53,3 +53,11 @@
 - [x] Redux Toolkit
 - [x] Server communication with Redux
 - [x] Connect
+
+### Part 7
+
+- [ ] React-Router
+- [ ] Custom Hooks
+- [ ] Styling React
+- [ ] Webpack
+- [ ] Class Components
