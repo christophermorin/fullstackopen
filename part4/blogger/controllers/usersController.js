@@ -4,11 +4,21 @@ const User = require('../models/Users')
 
 const logger = require('../utils/logger')
 
-usersRouter.get('/', async (request, response) => {
+usersRouter.get('/', async (request, response, next) => {
   const users = await User.find({}).populate('blogs', {user: 0})
   try {
     response.json(users)
   } catch (error) {
+    next(error)
+  }
+})
+
+usersRouter.get('/:id', async (request, response, next) => {
+  const user = await User.findById(request.params.id)
+  try{
+    response.json(user)
+  }
+  catch{
     next(error)
   }
 })

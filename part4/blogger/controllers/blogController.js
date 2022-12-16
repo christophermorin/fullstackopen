@@ -84,20 +84,33 @@ blogRouter.delete('/:id', userExtractor, async (request, response, next) => {
 
 blogRouter.put('/:id', async (request, response, next) => {
   const blog = request.body
-
+  console.log(blog)
   const updatedBlog = {
+    id: request.params.id,
     title: blog.title,
     author: blog.author,
     url: blog.url,
     likes: blog.likes,
-    user: blog.user
+    user: blog.user.id
   }
   await Blog.findByIdAndUpdate(request.params.id, updatedBlog)
   try {
+    console.log(updatedBlog)
     response.json(updatedBlog)
   } catch (error) {
     next(error)
   }
+})
+
+blogRouter.post('/:id/comments', async (request, response) => {
+  const blog = await Blog.findById(request.params.id)
+  const newId = Math.floor(Math.random() * 50000)
+  const comment = {
+    id: newId,
+    content: request.body.comment
+  }
+  blog.comments.push(comment)
+  await blog.save()
 })
 
 module.exports = blogRouter

@@ -44,17 +44,19 @@ Content-Type: application/json
 ### Get all users
 GET http://localhost:3001/api/users
 
+###
+GET http://localhost:3001/api/users/638e42002387e192692a72a3
 
 ### Login with user
 POST http://localhost:3001/api/login
 Content-Type: application/json
 
+{
+     "username": "jess",
+     "password": "222"
+}
+
 # {
 #      "username": "root",
-#      "password": "111"
+#      "password": "secret"
 # }
-
-{
-     "username": "root",
-     "password": "secret"
-}
