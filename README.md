@@ -49,7 +49,15 @@
 
 ### Part 6
 
-- [ ] Redux
-- [ ] Redux Toolkit
-- [ ] Server communication with Redux
-- [ ] Connect
+- [x] Redux
+- [x] Redux Toolkit
+- [x] Server communication with Redux
+- [x] Connect
+
+### Part 7
+
+- [ ] React-Router
+- [ ] Custom Hooks
+- [ ] Styling React
+- [ ] Webpack
+- [ ] Class Components
