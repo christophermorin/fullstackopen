@@ -1,42 +1,57 @@
-import Notification from './Notification'
-import PropTypes from 'prop-types'
-const Form = (props) => {
+import { useState } from 'react'
+import LoginForm from './LoginForm'
+import SignUp from './SignUp'
+
+import { Button } from '@mui/material'
+
+const Form = ({ username, password, setUsername, setPassword, handleLogin }) => {
+
+  const [toggleLogin, setToggleLogin] = useState(true)
+  const [toggleSignUp, setToggleSignUp]= useState(false)
+
+  const handleVisibility = (e) => {
+    const name = e.target.name
+    if(name === 'login'){
+      setToggleLogin(true)
+      setToggleSignUp(false)
+    }
+    else if(name === 'signup'){
+      setToggleSignUp(true)
+      setToggleLogin(false)
+    }
+    else if(name === 'user_created'){
+      setToggleLogin(true)
+      setToggleSignUp(false)
+    }
+  }
+
+  const buttonStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '20px',
+    marginTop: '50px'
+  }
+
   return (
     <div>
-      <h2>Login</h2>
-      {props.message && (
-        <Notification message={props.message} error={props.error} />
-      )}
-      <form onSubmit={props.handleLogin}>
-        <input
-          name="username"
-          placeholder="Username"
-          value={props.username}
-          onChange={({ target }) => props.setUsername(target.value)}
-          id="username"
+      {toggleLogin &&
+        <LoginForm
+          username={ username }
+          password={ password }
+          setUsername={ setUsername }
+          setPassword={ setPassword }
+          handleLogin={ handleLogin }
         />
-        <input
-          name="password"
-          placeholder="Password"
-          type="password"
-          value={props.password}
-          onChange={({ target }) => props.setPassword(target.value)}
-          id="password"
-        />
-        <button id="submit">Submit</button>
-      </form>
+      }
+      {toggleSignUp &&
+        <SignUp setToggleSignUp={setToggleSignUp} setToggleLogin={setToggleLogin}/>
+      }
+      <div style={buttonStyles}>
+        <Button name='login' onClick={handleVisibility} variant='contained'>Go to Login</Button>
+        <Button name='signup' onClick={handleVisibility} variant='contained'>Go to SignUp</Button>
+      </div>
     </div>
   )
-}
-
-Form.propTypes = {
-  setPassword: PropTypes.func.isRequired,
-  handleLogin: PropTypes.func.isRequired,
-  setUsername: PropTypes.func.isRequired,
-  message: PropTypes.string,
-  error: PropTypes.bool,
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
 }
 
 export default Form

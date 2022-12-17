@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Button } from '@mui/material'
 import PropTypes from 'prop-types'
 const Toggleable = (props) => {
   const [visible, setVisible] = useState(false)
@@ -13,13 +14,13 @@ const Toggleable = (props) => {
   return (
     <div>
       <div style={hideOnFormOpen}>
-        <button onClick={handleChangeVisibility} style={{ marginTop: '10px' }}>
+        <Button onClick={handleChangeVisibility} style={{ marginTop: '10px' }} variant="contained">
           {props.title}
-        </button>
+        </Button>
       </div>
       <div style={showOnFormOpen}>
         {props.children}
-        <button onClick={handleChangeVisibility}>Cancel</button>
+        <Button onClick={handleChangeVisibility} variant="outlined" color="error">Cancel</Button>
       </div>
     </div>
   )

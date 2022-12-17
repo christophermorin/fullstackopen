@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
-  Link, Routes, Route
+  Routes, Route,
 } from 'react-router-dom'
+
 import blogService from './services/blogs'
 import loginService from './services/login'
-// import Blog from './components/Blog'
 import Form from './components/Form'
-import Logout from './components/Logout'
 import AddBlog from './components/AddBlog'
 import Notification from './components/Notification'
 import Toggleable from './components/Toggleable'
@@ -15,11 +14,14 @@ import AllUsers from './components/AllUsers'
 import OneUser from './components/OneUser'
 import OneBlog from './components/OneBlog'
 import BlogList from './components/BlogList'
+import NavBar from './components/NavBar'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { setNotificationMessage } from './reducers/notificationReducer'
 import { setErrorStyle } from './reducers/errorReducer'
 import { addNewBlog, setBlogs } from './reducers/blogReducer'
+
+import { Container } from '@mui/material'
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -65,7 +67,6 @@ const App = () => {
       window.localStorage.setItem('user', JSON.stringify(result.userAuth.user))
       window.localStorage.setItem('userName', JSON.stringify(result.name))
       blogService.setToken(result.userAuth.token)
-      // dispatch(storeUser(result))
 
       setPassword('')
       setUsername('')
@@ -98,53 +99,39 @@ const App = () => {
     }
   }
   return (
-    <Router>
-      {notifications.length > 0
-        ? <Notification />
-        : null
-      }
-      {!user ? (
-        <div>
-          <Form
-            username={username}
-            password={password}
-            setUsername={setUsername}
-            setPassword={setPassword}
-            handleLogin={handleLogin}
-          />
-        </div>
-      ) : (
-        <div>
+    <Container style={{ paddingTop: '50px' }}>
+      <Router position='static'>
+        {notifications.length > 0
+          ? <Notification />
+          : null
+        }
+        {!user ? (
           <div>
-            <Link to="/">Home</Link>
-            <Link to="/users">Users</Link>
+            <Form
+              username={username}
+              password={password}
+              setUsername={setUsername}
+              setPassword={setPassword}
+              handleLogin={handleLogin}
+            />
           </div>
-          <h2>blogs</h2>
-          <h4>{user} is logged in</h4>
-          {user && <Logout logout={handleLogout} />}
-          <Toggleable title={'Create New Entry'}>
-            <AddBlog createBlog={createBlog} />
-          </Toggleable>
-          <Routes>
-            <Route path="/" element={<BlogList allBlogs={allBlogs} />} />
-            <Route path="/blogs/:id" element={<OneBlog allBlogs={allBlogs}/>} />
-            <Route path="/users" element={<AllUsers />} />
-            <Route path="/users/:id" element={ <OneUser />} />
-          </Routes>
-          {/* <BlogList allBlogs={allBlogs}/> */}
-          {/* <ul id="allBlogs">
-            {allBlogs
-              .sort((a,b) => b.likes - a.likes)
-              .map((blog) => (
-                <Blog
-                  key={blog.id}
-                  blog={blog}
-                />
-              ))}
-          </ul> */}
-        </div>
-      )}
-    </Router>
+        ) : (
+          <div>
+            <NavBar logOut={handleLogout}/>
+            <h3><span style={{ color: 'green', fontSize: '1.5rem' }}>{user}</span> is logged in</h3>
+            <Toggleable title={'Create New Entry'}>
+              <AddBlog createBlog={createBlog} />
+            </Toggleable>
+            <Routes>
+              <Route path="/" element={<BlogList allBlogs={allBlogs} />} />
+              <Route path="/blogs/:id" element={<OneBlog allBlogs={allBlogs}/>} />
+              <Route path="/users" element={<AllUsers />} />
+              <Route path="/users/:id" element={ <OneUser />} />
+            </Routes>
+          </div>
+        )}
+      </Router>
+    </Container>
   )
 }
 
