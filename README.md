@@ -56,8 +56,8 @@
 
 ### Part 7
 
-- [ ] React-Router
-- [ ] Custom Hooks
-- [ ] Styling React
-- [ ] Webpack
-- [ ] Class Components
+- [x] React-Router
+- [x] Custom Hooks
+- [x] Styling React
+- [x] Webpack
+- [x] Class Components
